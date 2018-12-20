@@ -12,3 +12,5 @@ yarn-error.log
 /.idea
 /docker
 /storage/docker
+docker-compose.yml
+.DS_Store
