@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    abort(401);
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -2,27 +2,31 @@
 
 namespace App\Nova;
 
+use Benjaminhirsch\NovaSlugField\Slug;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Froala\NovaFroalaField\Froala;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Textarea;
 
-class User extends Resource
+class News extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\User';
+    public static $model = 'App\\Models\\News';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +34,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'title', 'slug'
     ];
 
     /**
@@ -44,20 +48,27 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Slug::make('Slug')
+                ->sortable()
+                ->rules('required', 'max:255')
+                ->creationRules('unique:news,slug')
+                ->updateRules('unique:news,slug,{{resourceId}}'),
+
+            TextWithSlug::make('Title')
+                ->slug('Slug')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+            Text::make('Description')
+                ->rules('required', 'max:255'),
 
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:6')
-                ->updateRules('nullable', 'string', 'min:6'),
+            Froala::make('Content')
+                ->rules('required', 'max:255'),
+
+            BelongsTo::make('Category', 'category', 'App\\Nova\\Category')
+                ->searchable(),
+
+            Boolean::make('Status'),
         ];
     }
 
