@@ -10,7 +10,6 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -18,17 +17,22 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::where('status', true)->paginate(30);
+        $items = News::where('status', true)->paginate(30);
 
-        return response()->json($news);
+        return response()
+            ->json($items);
     }
 
     public function show(Request $request, $slug)
     {
-        $item = News::with('category')->where('status', true)->where('slug', $slug)->first();
+        $item = News::with('category')
+            ->where('status', true)
+            ->where('slug', $slug)
+            ->first();
 
         if (!$item) {
-            return response()->json([ 'error'=> 404, 'message'=> 'Not found'], 404);
+            return response()
+                ->json(['error' => 404, 'message' => 'Not found'], 404);
         }
 
         $item->views += 2;

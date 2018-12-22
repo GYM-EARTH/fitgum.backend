@@ -10,15 +10,14 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Club;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class ClubsController extends Controller
 {
     public function index()
     {
-        $items = Category::where('status', true)
-            ->paginate(30);
+        $items = Club::where('status', true)->paginate(30);
 
         return response()
             ->json($items);
@@ -26,16 +25,17 @@ class CategoriesController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $item = Category::where('status', true)
+        $item = Club::with('type')
+            ->where('status', true)
             ->where('slug', $slug)
             ->first();
 
         if (!$item) {
             return response()
-                ->json(['error' => 404, 'message' => 'Not found'], 404);
+                ->json([ 'error'=> 404, 'message'=> 'Not found'], 404);
         }
 
-        $item->views += 2;
+        $item->views += 1;
         $item->save();
 
         return response()

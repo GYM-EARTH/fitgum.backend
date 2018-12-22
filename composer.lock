@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "007f2546523c959724adde58bda55eac",
+    "content-hash": "fa78246573b8a479a7a67b531051ac8b",
     "packages": [
         {
             "name": "benjaminhirsch/nova-slug-field",
@@ -54,6 +54,57 @@
                 "nova"
             ],
             "time": "2018-10-10T18:18:24+00:00"
+        },
+        {
+            "name": "bissolli/nova-phone-field",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bissolli/nova-phone-field.git",
+                "reference": "ab11fff0a8390769db661a38bf6119834f4b4cb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bissolli/nova-phone-field/zipball/ab11fff0a8390769db661a38bf6119834f4b4cb6",
+                "reference": "ab11fff0a8390769db661a38bf6119834f4b4cb6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bissolli\\NovaPhoneField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bissolli\\NovaPhoneField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gustavo Bissolli",
+                    "email": "gustavo.bissolli@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A phone field for Laravel Nova apps.",
+            "homepage": "https://github.com/bissolli/nova-phone-field",
+            "keywords": [
+                "input mask",
+                "laravel",
+                "nova",
+                "phone mask"
+            ],
+            "time": "2018-11-12T14:56:24+00:00"
         },
         {
             "name": "cakephp/chronos",
