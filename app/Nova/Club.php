@@ -73,7 +73,10 @@ class Club extends Resource
             Image::make('Logo')
                 ->disk('public')
                 ->path('clubs/logos')
-                ->rules('mimes:svg'),
+                ->rules('mimes:svg')
+                ->storeAs(function (Request $request) {
+                    return substr(sha1($request->logo->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->logo->getClientOriginalExtension();
+                }),
 
             PhoneNumber::make('Phone')
                 ->withCustomFormats('##########')
