@@ -28,3 +28,7 @@ Route::get('/types/{slug}', 'Api\\TypesController@show');
 Route::get('/clubs', 'Api\\ClubsController@index');
 
 Route::get('/clubs/{slug}', 'Api\\ClubsController@show');
+
+Route::get('/trainers', 'Api\\TrainersController@index');
+
+Route::get('/trainers/{slug}', 'Api\\TrainersController@show');
