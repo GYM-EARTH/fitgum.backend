@@ -4,18 +4,24 @@ namespace App\Nova;
 
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
+use Froala\NovaFroalaField\Froala;
+use Laraning\NovaTimeField\TimeField;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 
-class ClubType extends Resource
+class Flaer extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\ClubType';
+    public static $model = 'App\\Models\\Flaer';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -47,8 +53,8 @@ class ClubType extends Resource
             Slug::make('Slug')
                 ->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:club_types,slug')
-                ->updateRules('unique:club_types,slug,{{resourceId}}'),
+                ->creationRules('unique:flaers,slug')
+                ->updateRules('unique:flaers,slug,{{resourceId}}'),
 
             TextWithSlug::make('Title')
                 ->slug('Slug')
@@ -57,6 +63,25 @@ class ClubType extends Resource
 
             Text::make('Description')
                 ->rules('required', 'max:255'),
+
+            Froala::make('Content')
+                ->rules('required', 'max:255')
+                ->hideFromIndex(),
+
+            Text::make('Price')
+                ->rules('nullable', 'regex:/^-?(?:\d+|\d*\.\d+)$/'),
+
+            Number::make('Discount')
+                ->rules('nullable', 'numeric'),
+
+            TimeField::make('Start'),
+
+            TimeField::make('Finish'),
+
+            BelongsTo::make('Club', 'club', 'App\\Nova\\Club')
+                ->searchable(),
+
+            Boolean::make('Status'),
         ];
     }
 

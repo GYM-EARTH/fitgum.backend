@@ -7,15 +7,16 @@ use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ClubType extends Resource
+class Video extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\ClubType';
+    public static $model = 'App\\Models\\Video';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -47,8 +48,8 @@ class ClubType extends Resource
             Slug::make('Slug')
                 ->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:club_types,slug')
-                ->updateRules('unique:club_types,slug,{{resourceId}}'),
+                ->creationRules('unique:videos,slug')
+                ->updateRules('unique:videos,slug,{{resourceId}}'),
 
             TextWithSlug::make('Title')
                 ->slug('Slug')
@@ -57,6 +58,9 @@ class ClubType extends Resource
 
             Text::make('Description')
                 ->rules('required', 'max:255'),
+
+            Text::make('Url')
+                ->rules('max:255', 'url'),
         ];
     }
 

@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Trainer extends Resource
 {
@@ -54,8 +53,8 @@ class Trainer extends Resource
             Slug::make('Slug')
                 ->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:news,slug')
-                ->updateRules('unique:news,slug,{{resourceId}}'),
+                ->creationRules('unique:trainers,slug')
+                ->updateRules('unique:trainers,slug,{{resourceId}}'),
 
             Text::make('Name')
                 ->rules('required', 'max:255'),
@@ -87,7 +86,7 @@ class Trainer extends Resource
                     return substr(sha1($request->photo->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->photo->getClientOriginalExtension();
                 }),
 
-            BelongsTo::make('Club', 'type', 'App\\Nova\\Club')
+            BelongsTo::make('Club', 'club', 'App\\Nova\\Club')
                 ->searchable(),
 
             Number::make('Experience')

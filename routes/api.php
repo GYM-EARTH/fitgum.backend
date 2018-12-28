@@ -32,3 +32,11 @@ Route::get('/clubs/{slug}', 'Api\\ClubsController@show');
 Route::get('/trainers', 'Api\\TrainersController@index');
 
 Route::get('/trainers/{slug}', 'Api\\TrainersController@show');
+
+Route::get('/videos', 'Api\\VideosController@index');
+
+Route::get('/videos/{slug}', 'Api\\VideosController@show');
+
+Route::get('/flaers', 'Api\\FlaersController@index');
+
+Route::get('/flaers/{slug}', 'Api\\FlaersController@show');

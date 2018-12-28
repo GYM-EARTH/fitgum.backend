@@ -52,8 +52,8 @@ class Club extends Resource
             Slug::make('Slug')
                 ->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:news,slug')
-                ->updateRules('unique:news,slug,{{resourceId}}'),
+                ->creationRules('unique:clubs,slug')
+                ->updateRules('unique:clubs,slug,{{resourceId}}'),
 
             TextWithSlug::make('Title')
                 ->slug('Slug')
