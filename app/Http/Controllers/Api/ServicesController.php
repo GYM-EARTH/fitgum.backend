@@ -10,14 +10,14 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Club;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class ClubsController extends Controller
+class ServicesController extends Controller
 {
     public function index()
     {
-        $items = Club::where('status', true)->paginate(30);
+        $items = Service::paginate(30);
 
         return response()
             ->json($items);
@@ -25,11 +25,7 @@ class ClubsController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $item = Club::with('type')
-            ->with('metros')
-            ->with('services')
-            ->where('status', true)
-            ->where('slug', $slug)
+        $item = Service::where('slug', $slug)
             ->first();
 
         if (!$item) {
@@ -37,7 +33,6 @@ class ClubsController extends Controller
                 ->json([ 'error'=> 404, 'message'=> 'Not found'], 404);
         }
 
-        $item->views += 1;
         $item->save();
 
         return response()

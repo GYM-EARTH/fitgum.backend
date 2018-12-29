@@ -40,3 +40,13 @@ Route::get('/videos/{slug}', 'Api\\VideosController@show');
 Route::get('/flaers', 'Api\\FlaersController@index');
 
 Route::get('/flaers/{slug}', 'Api\\FlaersController@show');
+
+Route::get('/navigation', 'Api\\NavigationController@index');
+
+Route::get('/metros', 'Api\\MetrosController@index');
+
+Route::get('/metros/{slug}', 'Api\\MetrosController@show');
+
+Route::get('/services', 'Api\\ServicesController@index');
+
+Route::get('/services/{slug}', 'Api\\ServicesController@show');
