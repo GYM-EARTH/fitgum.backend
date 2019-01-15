@@ -16,7 +16,13 @@ class NavigationController extends Controller
 {
     public function index()
     {
+        /** @var Navigation[] $items */
         $items = Navigation::all();
+
+        foreach ($items as $item) {
+            $item->views += 3;
+            $item->save();
+        }
 
         return response()
             ->json($items);

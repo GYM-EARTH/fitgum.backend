@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -26,6 +27,7 @@ class CategoriesController extends Controller
 
     public function show(Request $request, $slug)
     {
+        /** @var Category $item */
         $item = Category::where('status', true)
             ->where('slug', $slug)
             ->first();
@@ -39,6 +41,6 @@ class CategoriesController extends Controller
         $item->save();
 
         return response()
-            ->json($item->toArray());
+            ->json($item->news);
     }
 }

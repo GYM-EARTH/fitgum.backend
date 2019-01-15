@@ -6,6 +6,7 @@ use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -61,6 +62,14 @@ class Video extends Resource
 
             Text::make('Url')
                 ->rules('max:255', 'url'),
+
+            Image::make('Preview')
+                ->disk('public')
+                ->path('videos/previews')
+                ->rules('mimes:jpeg')
+                ->storeAs(function (Request $request) {
+                    return substr(sha1($request->preview->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->preview->getClientOriginalExtension();
+                }),
         ];
     }
 
