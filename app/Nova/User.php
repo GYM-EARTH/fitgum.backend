@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\CreateToken;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -32,6 +33,8 @@ class User extends Resource
     public static $search = [
         'id', 'name', 'email',
     ];
+
+    public static $group = 'Users';
 
     /**
      * Get the fields displayed by the resource.
@@ -102,6 +105,8 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new CreateToken(),
+        ];
     }
 }

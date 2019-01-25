@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/login', 'Api\\AuthController@login');
+
+Route::get('/cabinet', function (Request $request) {
+    return $request->user();
+})->middleware('auth:api');
+
 Route::get('/categories', 'Api\\CategoriesController@index');
 
 Route::get('/categories/{slug}', 'Api\\CategoriesController@show');
