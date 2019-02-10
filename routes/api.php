@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/login', 'Api\\AuthController@login');
+Route::post('/login', 'Api\\AuthController@login');
 
 Route::get('/cabinet', function (Request $request) {
     return $request->user();
