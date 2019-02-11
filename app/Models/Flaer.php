@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Flaer extends Model
 {
     protected $table = 'flaers';
+    protected $dates = [
+        'start',
+        'finish',
+    ];
 
     public function club()
     {

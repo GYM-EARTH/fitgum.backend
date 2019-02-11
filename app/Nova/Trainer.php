@@ -81,7 +81,8 @@ class Trainer extends Resource
             Image::make('Photo')
                 ->disk('public')
                 ->path('trainers/photos')
-                ->rules('required', 'mimes:png')
+                ->rules('mimes:png')
+                ->creationRules('required')
                 ->storeAs(function (Request $request) {
                     return substr(sha1($request->photo->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->photo->getClientOriginalExtension();
                 }),
@@ -97,6 +98,19 @@ class Trainer extends Resource
 
             Froala::make('Content')
                 ->rules('required', 'max:255')
+                ->hideFromIndex(),
+
+            Text::make('Skype')
+                ->rules('max:255'),
+
+            PhoneNumber::make('Latitude')
+                ->withCustomFormats('##.########')
+                ->onlyCustomFormats()
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Longitude')
+                ->withCustomFormats('##.########')
+                ->onlyCustomFormats()
                 ->hideFromIndex(),
 
             Boolean::make('Status'),

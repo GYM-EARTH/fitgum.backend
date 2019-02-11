@@ -8,6 +8,7 @@ use Froala\NovaFroalaField\Froala;
 use Laraning\NovaTimeField\TimeField;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -75,9 +76,9 @@ class Flaer extends Resource
             Number::make('Discount')
                 ->rules('nullable', 'numeric'),
 
-            TimeField::make('Start'),
+            Date::make('Start'),
 
-            TimeField::make('Finish'),
+            Date::make('Finish'),
 
             BelongsTo::make('Club', 'club', 'App\\Nova\\Club')
                 ->searchable(),

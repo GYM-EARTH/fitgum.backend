@@ -21,8 +21,8 @@ class CreateFlaersTable extends Migration
             $table->text('content');
             $table->string('price');
             $table->integer('discount')->unsigned()->nullable();
-            $table->time('start');
-            $table->time('finish');
+            $table->date('start');
+            $table->date('finish');
             $table->integer('club_id')->unsigned();
             $table->integer('views')->unsigned()->default(0);
             $table->boolean('status')->default(false);

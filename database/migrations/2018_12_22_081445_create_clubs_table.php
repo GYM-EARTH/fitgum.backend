@@ -34,6 +34,7 @@ class CreateClubsTable extends Migration
             $table->integer('views')->unsigned()->default(0);
             $table->boolean('status')->default(false);
             $table->integer('club_type_id')->unsigned();
+            $table->string('color', 6)->nullable();
             $table->timestamps();
 
             $table->foreign('club_type_id')->references('id')->on('club_types')->onDelete('cascade');

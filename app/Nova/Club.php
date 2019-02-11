@@ -127,6 +127,9 @@ class Club extends Resource
                 ->rules('max:255', 'nullable', 'url')
                 ->hideFromIndex(),
 
+            Text::make('Color')
+                ->rules('max:6'),
+
             BelongsToMany::make('Services', 'services', Service::class)
                 ->searchable(),
 

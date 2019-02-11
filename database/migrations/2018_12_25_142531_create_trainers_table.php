@@ -29,6 +29,9 @@ class CreateTrainersTable extends Migration
             $table->text('content');
             $table->integer('views')->unsigned()->default(0);
             $table->boolean('status')->default(false);
+            $table->string('skype')->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 10, 8)->nullable();
             $table->timestamps();
 
             $table->foreign('club_id')->references('id')->on('clubs')->onDelete('cascade');
