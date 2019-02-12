@@ -6,13 +6,14 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Nova\TrashedStatus;
 use Laravel\Nova\Rules\Relatable;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class BelongsTo extends Field
 {
     use FormatsRelatableDisplayValues;
+    use ResolvesReverseRelation;
 
     /**
      * The field's component.
@@ -92,13 +93,6 @@ class BelongsTo extends Field
     public $singularLabel;
 
     /**
-     * The reverse relation for the related resource.
-     *
-     * @var string
-     */
-    public $reverseRelation;
-
-    /**
      * Create a new field.
      *
      * @param  string  $name
@@ -144,57 +138,6 @@ class BelongsTo extends Field
     }
 
     /**
-     * Determine if the field is the reverse relation of a showed index view.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return bool
-     */
-    public function isReverseRelation(Request $request)
-    {
-        if (! $request->viaResource || $this->resourceName !== $request->viaResource) {
-            return false;
-        }
-
-        $reverse = $this->getReverseRelation($request);
-
-        return $reverse === $request->viaRelationship;
-    }
-
-    /**
-     * Get reverse relation field name.
-     *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @return string
-     */
-    public function getReverseRelation(NovaRequest $request)
-    {
-        if (is_null($this->reverseRelation)) {
-            $viaModel = forward_static_call(
-                [$resourceClass = $this->resourceClass, 'newModel']
-            );
-
-            $viaResource = new $resourceClass($viaModel);
-
-            $resource = $request->newResource();
-
-            $this->reverseRelation = $viaResource->availableFields($request)
-                    ->first(function ($field) use ($viaModel, $resource) {
-                        if (! isset($field->resourceName) || $field->resourceName !== $resource::uriKey()) {
-                            return false;
-                        }
-
-                        $relation = $viaModel->{$field->attribute}();
-
-                        $method = $relation instanceof HasOneOrMany ? 'getForeignKeyName' : 'getForeignKey';
-
-                        return $relation->{$method}() === $resource->model()->{$this->attribute}()->getForeignKey();
-                    })->attribute ?? '';
-        }
-
-        return $this->reverseRelation;
-    }
-
-    /**
      * Resolve the field's value.
      *
      * @param  mixed  $resource
@@ -203,7 +146,12 @@ class BelongsTo extends Field
      */
     public function resolve($resource, $attribute = null)
     {
-        $value = $resource->{$this->attribute}()->withoutGlobalScopes()->first();
+        if ($resource instanceof Model && $resource->relationLoaded($this->attribute)) {
+            $value = $resource->getRelation($this->attribute);
+        } else {
+            $value = $resource->{$this->attribute}()->withoutGlobalScopes()->first();
+            $resource->setRelation($this->attribute, $value);
+        }
 
         if ($value) {
             $this->belongsToId = $value->getKey();
@@ -241,7 +189,13 @@ class BelongsTo extends Field
      */
     public function fill(NovaRequest $request, $model)
     {
-        parent::fillInto($request, $model, $model->{$this->attribute}()->getForeignKey());
+        $foreignKey = $model->{$this->attribute}()->getForeignKey();
+
+        parent::fillInto($request, $model, $foreignKey);
+
+        if ($model->isDirty($foreignKey)) {
+            $model->unsetRelation($this->attribute);
+        }
 
         if ($this->filledCallback) {
             call_user_func($this->filledCallback, $request, $model);
@@ -398,7 +352,7 @@ class BelongsTo extends Field
             'belongsToId' => $this->belongsToId,
             'nullable' => $this->nullable,
             'searchable' => $this->searchable,
-            'reverseRelation' => $this->getReverseRelation(app(NovaRequest::class)),
+            'reverse' => $this->isReverseRelation(app(NovaRequest::class)),
         ], $this->meta);
     }
 }

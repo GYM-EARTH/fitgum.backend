@@ -16,6 +16,8 @@ use Laravel\Nova\Fields\Text;
 
 class Club extends Resource
 {
+    public static $group = 'Clubs';
+
     /**
      * The model the resource corresponds to.
      *

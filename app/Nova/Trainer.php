@@ -16,6 +16,8 @@ use Laravel\Nova\Fields\Text;
 
 class Trainer extends Resource
 {
+    public static $group = 'Trainers';
+
     /**
      * The model the resource corresponds to.
      *

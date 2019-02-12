@@ -2,8 +2,6 @@
 
 namespace Laravel\Nova\Http\Requests;
 
-use Illuminate\Support\Facades\DB;
-
 trait CountsResources
 {
     /**
@@ -20,8 +18,10 @@ trait CountsResources
             $baseQuery->unions ? ['orders', 'limit', 'offset'] : ['columns', 'orders', 'limit', 'offset']
         )->cloneWithoutBindings(
             $baseQuery->unions ? ['order'] : ['select', 'order']
-        )->selectRaw('1');
+        )->selectRaw('1 as exists_temp');
 
-        return DB::query()->fromSub($subQuery, 'count_temp');
+        return $query->getConnection()
+            ->query()
+            ->fromSub($subQuery, 'count_temp');
     }
 }

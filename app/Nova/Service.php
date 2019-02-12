@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\Text;
 
 class Service extends Resource
 {
+    public static $group = 'Clubs';
+
     /**
      * The model the resource corresponds to.
      *

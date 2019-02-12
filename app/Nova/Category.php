@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Text;
 
 class Category extends Resource
 {
+    public static $group = 'News';
     /**
      * The model the resource corresponds to.
      *

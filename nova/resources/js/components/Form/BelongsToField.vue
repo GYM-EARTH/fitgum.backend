@@ -31,7 +31,7 @@
                 </div>
             </search-input>
 
-            <select
+            <select-control
                 v-if="!isSearchable || isLocked"
                 class="form-control form-select mb-3 w-full"
                 :class="{ 'border-danger': hasError }"
@@ -39,18 +39,12 @@
                 :dusk="field.attribute"
                 @change="selectResourceFromSelectControl"
                 :disabled="isLocked"
+                :options="availableResources"
+                :selected="selectedResourceId"
+                label="display"
             >
                 <option value="" selected :disabled="!field.nullable">&mdash;</option>
-
-                <option
-                    v-for="resource in availableResources"
-                    :key="resource.value"
-                    :value="resource.value"
-                    :selected="selectedResourceId == resource.value"
-                >
-                    {{ resource.display }}
-                </option>
-            </select>
+            </select-control>
 
             <!-- Trashed State -->
             <div v-if="softDeletes && !isLocked">
@@ -233,7 +227,7 @@ export default {
         creatingViaRelatedResource() {
             return (
                 this.viaResource == this.field.resourceName &&
-                this.viaRelationship === this.field.reverseRelation &&
+                this.field.reverse &&
                 this.viaResourceId
             )
         },
@@ -267,10 +261,7 @@ export default {
         },
 
         isLocked() {
-            return (
-                this.viaResource == this.field.resourceName &&
-                this.viaRelationship === this.field.reverseRelation
-            )
+            return this.viaResource == this.field.resourceName && this.field.reverse
         },
     },
 }

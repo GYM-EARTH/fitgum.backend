@@ -12,6 +12,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Navigation extends Resource
 {
+    public static $group = 'Settings';
+
     /**
      * The model the resource corresponds to.
      *

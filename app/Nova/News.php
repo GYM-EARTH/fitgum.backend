@@ -15,6 +15,8 @@ use Laravel\Nova\Fields\Textarea;
 
 class News extends Resource
 {
+    public static $group = 'News';
+
     /**
      * The model the resource corresponds to.
      *
