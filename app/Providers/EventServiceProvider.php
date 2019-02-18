@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ClubSaving::class => [
             \App\Listeners\ClubSaving::class,
         ],
+        \App\Events\ClubDeleted::class => [
+            \App\Listeners\ClubDeleted::class,
+        ],
     ];
 
     /**

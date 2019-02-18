@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Club extends Model
 {
@@ -23,5 +24,10 @@ class Club extends Model
     public function services()
     {
         return $this->belongsToMany(Service::class, 'club_service', 'club_id', 'service_id');
+    }
+
+    public function clubPhotos()
+    {
+        return $this->hasMany(ClubPhoto::class);
     }
 }

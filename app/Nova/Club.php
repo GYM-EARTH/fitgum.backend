@@ -9,6 +9,7 @@ use Froala\NovaFroalaField\Froala;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
@@ -131,6 +132,8 @@ class Club extends Resource
 
             Text::make('Color')
                 ->rules('max:6'),
+
+            HasMany::make('ClubPhotos'),
 
             BelongsToMany::make('Services', 'services', Service::class)
                 ->searchable(),
