@@ -14,7 +14,7 @@
         "bissolli/nova-phone-field": "^0.0.1",
         "fideloper/proxy": "^4.0",
         "froala/nova-froala-field": "^1.1",
-        "laraning/nova-time-field": "^0.1.0",
+        "laraning/nova-time-field": "*",
         "laravel/framework": "5.7.*",
         "laravel/nova": "*",
         "laravel/passport": "^7.1",
@@ -70,6 +70,10 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/NovaTimeField"
         }
     ]
 }

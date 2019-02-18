@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Panel;
 
 class Club extends Resource
 {
@@ -142,7 +143,57 @@ class Club extends Resource
                 ->searchable(),
 
             Boolean::make('Status'),
+
+            new Panel('Work Time Schedule', $this->timeSchedule()),
         ];
+    }
+
+    protected function timeSchedule()
+    {
+        return [
+            PhoneNumber::make('Monday', 'mo')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Tuesday', 'tu')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Wednesday', 'we')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Thursday', 'th')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Friday', 'fr')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Saturday', 'sa')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+
+            PhoneNumber::make('Sunday', 'su')
+                ->withCustomFormats('##:## - ##:##')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'string')
+                ->hideFromIndex(),
+        ];
+
     }
 
     /**
