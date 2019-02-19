@@ -136,6 +136,8 @@ class Club extends Resource
 
             HasMany::make('ClubPhotos'),
 
+            HasMany::make('ClubTimes'),
+
             BelongsToMany::make('Services', 'services', Service::class)
                 ->searchable(),
 

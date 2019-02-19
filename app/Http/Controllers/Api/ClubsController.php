@@ -28,6 +28,7 @@ class ClubsController extends Controller
         $item = Club::with('type')
             ->with('metros')
             ->with('services')
+            ->with('clubTimes')
             ->where('status', true)
             ->where('slug', $slug)
             ->first();
