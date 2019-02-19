@@ -151,7 +151,7 @@ class Club extends Resource
     protected function timeSchedule()
     {
         return [
-            PhoneNumber::make('Monday', 'mo')
+            /*PhoneNumber::make('Monday', 'mo')
                 ->withCustomFormats('##:## - ##:##')
                 ->onlyCustomFormats()
                 ->rules('nullable', 'string')
@@ -191,7 +191,7 @@ class Club extends Resource
                 ->withCustomFormats('##:## - ##:##')
                 ->onlyCustomFormats()
                 ->rules('nullable', 'string')
-                ->hideFromIndex(),
+                ->hideFromIndex(),*/
         ];
 
     }
