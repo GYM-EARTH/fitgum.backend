@@ -30,9 +30,9 @@ return [
     | any location you wish depending on the needs of your application.
     |
     */
-    //'domain' => env('APP_NOVA_DOMAIN'),
+    'domain' => env('APP_NOVA_DOMAIN'),
 
-    'url' => env('APP_NOVA_DOMAIN', '/nova'),
+    'url' => env('APP_NOVA_DOMAIN', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'path' => '/nova',
+    'path' => '/',
 
     /*
     |--------------------------------------------------------------------------
