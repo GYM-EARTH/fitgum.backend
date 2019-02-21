@@ -35,4 +35,9 @@ class Club extends Model
     {
         return $this->hasMany(ClubTime::class);
     }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
 }

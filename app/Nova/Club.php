@@ -94,8 +94,7 @@ class Club extends Resource
                 ->rules('nullable', 'numeric')
                 ->hideFromIndex(),
 
-            Text::make('City')
-                ->rules('max:255'),
+            BelongsTo::make('City'),
 
             Text::make('Street')
                 ->rules('max:255')

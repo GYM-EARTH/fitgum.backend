@@ -115,6 +115,8 @@ class Trainer extends Resource
                 ->onlyCustomFormats()
                 ->hideFromIndex(),
 
+            BelongsTo::make('City'),
+
             Boolean::make('Status'),
         ];
     }

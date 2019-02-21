@@ -14,4 +14,9 @@ class Trainer extends Model
     {
         return $this->belongsTo(Club::class, 'club_id', 'id');
     }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
 }
