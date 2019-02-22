@@ -16,16 +16,16 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 
-class Club extends Resource
+class Vacancy extends Resource
 {
-    public static $group = 'Clubs';
+    public static $group = 'Service';
 
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Club';
+    public static $model = 'App\\Models\\Vacancy';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -40,7 +40,7 @@ class Club extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title', 'slug'
+        'id', 'title'
     ];
 
     /**
@@ -54,67 +54,36 @@ class Club extends Resource
         return [
             ID::make()->sortable(),
 
-            Slug::make('Slug')
-                ->sortable()
-                ->rules('required', 'max:255')
-                ->creationRules('unique:clubs,slug')
-                ->updateRules('unique:clubs,slug,{{resourceId}}'),
-
-            TextWithSlug::make('Title')
-                ->slug('Slug')
+            Text::make('Title')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Description')
-                ->rules('required', 'max:255'),
+            BelongsTo::make('Club')
+                ->nullable(),
 
-            BelongsTo::make('ClubType', 'type', 'App\\Nova\\ClubType')
-                ->searchable(),
-
-            Froala::make('Content')
-                ->rules('required', 'max:255')
+            Froala::make('Definition')
                 ->hideFromIndex(),
 
-            Image::make('Logo')
-                ->disk('public')
-                ->path('clubs/logos')
-                ->rules('mimes:svg')
-                ->storeAs(function (Request $request) {
-                    return substr(sha1($request->logo->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->logo->getClientOriginalExtension();
-                }),
+            Froala::make('Responsibility')
+                ->hideFromIndex(),
 
-            PhoneNumber::make('Phone')
+            Froala::make('Demand')
+                ->hideFromIndex(),
+
+            Froala::make('Conditions')
+                ->hideFromIndex(),
+
+            /** TODO Change mask */
+            PhoneNumber::make('Salary')
                 ->withCustomFormats('##########')
                 ->onlyCustomFormats()
                 ->rules('nullable', 'numeric'),
 
-            PhoneNumber::make('Aphone')
-                ->withCustomFormats('##########')
-                ->onlyCustomFormats()
-                ->rules('nullable', 'numeric')
-                ->hideFromIndex(),
+            BelongsTo::make('City')
+                ->nullable(),
 
-            BelongsTo::make('City'),
-
-            Text::make('Street')
-                ->rules('max:255')
-                ->hideFromIndex(),
-
-            Text::make('House')
-                ->rules('nullable', 'numeric', 'max:10000', 'min:1')
-                ->hideFromIndex(),
-
-            Text::make('Housing')
-                ->rules('max:255')
-                ->hideFromIndex(),
-
-            Text::make('Structure')
-                ->rules('max:255')
-                ->hideFromIndex(),
-
-            Text::make('Proficiency')
-                ->rules('max:255')
-                ->hideFromIndex(),
+            BelongsTo::make('Metro')
+                ->nullable(),
 
             PhoneNumber::make('Latitude')
                 ->withCustomFormats('##.########')
@@ -126,24 +95,14 @@ class Club extends Resource
                 ->onlyCustomFormats()
                 ->hideFromIndex(),
 
-            Text::make('Site')
-                ->rules('max:255', 'nullable', 'url')
+            Text::make('Department')
+                ->rules('max:255')
                 ->hideFromIndex(),
 
-            Text::make('Color')
-                ->rules('max:6'),
-
-            HasMany::make('ClubPhotos'),
-
-            HasMany::make('ClubTimes'),
-
-            BelongsToMany::make('Services', 'services', Service::class)
-                ->searchable(),
-
-            BelongsToMany::make('Metros', 'metros', Metro::class)
-                ->searchable(),
-
-            Boolean::make('Status'),
+            PhoneNumber::make('Phone')
+                ->withCustomFormats('##########')
+                ->onlyCustomFormats()
+                ->rules('nullable', 'numeric'),
         ];
     }
 

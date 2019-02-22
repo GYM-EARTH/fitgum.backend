@@ -37,6 +37,10 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('/clubs/{slug}', 'Api\\ClubsController@show');
 
+    Route::get('/vacancies', 'Api\\VacanciesController@index');
+
+    Route::get('/vacancies/{id}', 'Api\\VacanciesController@show');
+
     Route::get('/trainers', 'Api\\TrainersController@index');
 
     Route::get('/trainers/{slug}', 'Api\\TrainersController@show');
