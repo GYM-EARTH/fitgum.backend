@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 
@@ -73,10 +74,7 @@ class Vacancy extends Resource
             Froala::make('Conditions')
                 ->hideFromIndex(),
 
-            /** TODO Change mask */
-            PhoneNumber::make('Salary')
-                ->withCustomFormats('##########')
-                ->onlyCustomFormats()
+            Number::make('Salary')
                 ->rules('nullable', 'numeric'),
 
             BelongsTo::make('City')

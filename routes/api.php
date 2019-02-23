@@ -53,7 +53,7 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('/flaers/{slug}', 'Api\\FlaersController@show');
 
-    Route::get('/navigation', 'Api\\NavigationController@index');
+    Route::get('/navigations', 'Api\\NavigationController@index');
 
     Route::get('/metros', 'Api\\MetrosController@index');
 
