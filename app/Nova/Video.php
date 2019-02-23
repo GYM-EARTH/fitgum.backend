@@ -71,6 +71,8 @@ class Video extends Resource
                 ->storeAs(function (Request $request) {
                     return substr(sha1($request->preview->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->preview->getClientOriginalExtension();
                 }),
+
+            Boolean::make('Status'),
         ];
     }
 

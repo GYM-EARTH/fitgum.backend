@@ -17,7 +17,7 @@ class VacanciesController extends Controller
 {
     public function index()
     {
-        $items = Vacancy::paginate(30);
+        $items = Vacancy::where('status', true)->paginate(30);
 
         return response()
             ->json($items);
@@ -29,6 +29,7 @@ class VacanciesController extends Controller
             ->with('club')
             ->with('city')
             ->where('id', $id)
+            ->where('status', true)
             ->first();
 
         if (!$item) {

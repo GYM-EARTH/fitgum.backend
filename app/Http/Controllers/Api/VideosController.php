@@ -17,7 +17,7 @@ class VideosController extends Controller
 {
     public function index()
     {
-        $items = Video::paginate(30);
+        $items = Video::where('status', true)->paginate(30);
 
         return response()
             ->json($items);
@@ -26,6 +26,7 @@ class VideosController extends Controller
     public function show(Request $request, $slug)
     {
         $item = Video::where('slug', $slug)
+            ->where('status', true)
             ->first();
 
         if (!$item) {

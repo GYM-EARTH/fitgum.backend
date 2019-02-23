@@ -101,6 +101,8 @@ class Vacancy extends Resource
                 ->withCustomFormats('##########')
                 ->onlyCustomFormats()
                 ->rules('nullable', 'numeric'),
+
+            Boolean::make('Status'),
         ];
     }
 
