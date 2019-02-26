@@ -72,7 +72,7 @@ class Club extends Resource
                 ->searchable(),
 
             Froala::make('Content')
-                ->rules('required', 'max:255')
+                ->rules('required')
                 ->hideFromIndex(),
 
             Image::make('Logo')

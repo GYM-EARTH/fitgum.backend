@@ -69,7 +69,7 @@ class Flaer extends Resource
                 ->rules('required', 'max:255'),
 
             Froala::make('Content')
-                ->rules('required', 'max:255')
+                ->rules('required')
                 ->hideFromIndex(),
 
             Text::make('Price')

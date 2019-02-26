@@ -66,7 +66,7 @@ class News extends Resource
                 ->rules('required', 'max:255'),
 
             Froala::make('Content')
-                ->rules('required', 'max:255'),
+                ->rules('required'),
 
             BelongsTo::make('Category', 'category', 'App\\Nova\\Category')
                 ->searchable(),

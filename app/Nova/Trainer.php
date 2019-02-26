@@ -99,7 +99,7 @@ class Trainer extends Resource
                 ->rules('max:255'),
 
             Froala::make('Content')
-                ->rules('required', 'max:255')
+                ->rules('required')
                 ->hideFromIndex(),
 
             Text::make('Skype')
