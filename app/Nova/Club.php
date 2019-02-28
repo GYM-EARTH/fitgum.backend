@@ -118,11 +118,13 @@ class Club extends Resource
 
             PhoneNumber::make('Latitude')
                 ->withCustomFormats('##.########')
+                ->rules('nullable', 'regex:^([0-9]{2}\.[0-9]{8})$^')
                 ->onlyCustomFormats()
                 ->hideFromIndex(),
 
             PhoneNumber::make('Longitude')
                 ->withCustomFormats('##.########')
+                ->rules('nullable', 'regex:^([0-9]{2}\.[0-9]{8})$^')
                 ->onlyCustomFormats()
                 ->hideFromIndex(),
 
