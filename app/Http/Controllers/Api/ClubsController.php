@@ -29,6 +29,8 @@ class ClubsController extends Controller
             ->with('metros')
             ->with('services')
             ->with('clubTimes')
+            ->with('city')
+            ->with('levels')
             ->where('status', true)
             ->where('slug', $slug)
             ->first();

@@ -145,6 +145,9 @@ class Club extends Resource
             BelongsToMany::make('Metros', 'metros', Metro::class)
                 ->searchable(),
 
+            BelongsToMany::make('Levels', 'levels', Level::class)
+                ->searchable(),
+
             Boolean::make('Status'),
         ];
     }
