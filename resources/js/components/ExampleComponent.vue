@@ -16,7 +16,18 @@
 
 <script>
     export default {
+        data() {
+            return {
+                message: [],
+                textMessage: ''
+            }
+        },
         mounted() {
+            window.Echo.private('chat.1')
+                .listen('TestMessage', ({message}) => {
+                    console.log(message);
+                });
+
             console.log('Component mounted.')
         }
     }

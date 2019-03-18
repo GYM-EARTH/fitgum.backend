@@ -23,7 +23,6 @@ Route::get('/get-token', function () {
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/index', function () {
-    return view('index');
-});
+Route::get('/index', 'HomeController@index')->name('home');
+Route::get('/chat', 'HomeController@chat');
+

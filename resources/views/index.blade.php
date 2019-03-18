@@ -1,20 +1,14 @@
 <!doctype html>
 <html>
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-<ul id="messages"></ul>
-<form action="">
-    <input id="m" autocomplete="off"/>
-    <button>Send</button>
-</form>
+<div id="app">
+    <example-component></example-component>
+</div>
 
-<script>
-    let socket = io(':6001');
-    socket.on('message', function (data) {
-        console.log(data);
-    })
-</script>
+<script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>
