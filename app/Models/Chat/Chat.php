@@ -15,7 +15,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Chat extends Model
 {
+    public const TYPE_PRIVATE = 'private';
+    public const TYPE_PUBLIC = 'public';
+
     use SoftDeletes;
+
+    protected $fillable = [
+        'type',
+    ];
 
     public function users()
     {

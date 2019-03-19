@@ -11,7 +11,7 @@
                                           v-model="token"></textarea>
                             </div>
                             <div class="form-group">
-                                <input placeholder="Receiver ID" class="form-control" id="userId" v-model="userId"/>
+                                <input placeholder="User ID" class="form-control" id="userId" v-model="userId"/>
                             </div>
                             <button @click="addToken" class="btn btn-success">Set token</button>
                             <button @click="getToken" class="btn btn-primary">Get token</button>
@@ -24,13 +24,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input placeholder="Receiver ID" class="form-control" id="receiver" v-model="receiver"/>
+                                <input placeholder="Receivers ID (через запятую)" class="form-control"  v-model="receivers"/>
+                            </div>
+                            <div class="form-group">
+                                <input placeholder="Chat ID" class="form-control" v-model="chatId"/>
                             </div>
                             <div class="form-group">
                                 <textarea placeholder="Message" class="form-control" id="message"
                                           v-model="message"></textarea>
                             </div>
                             <button @click="sendMessage" class="btn btn-success">Send</button>
+                            <button @click="getMessages" class="btn btn-success">Get history</button>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -51,34 +55,56 @@
             return {
                 messages: [],
                 message: '',
-                receiver: '',
+                chatId: '',
+                receivers: '',
                 token: '',
                 userId: '',
             }
         },
         mounted() {
             window.Echo.private('chat.' + window.getCookie('userId'))
-                .listen('TestMessage', ({message}) => {
-                    console.log(message);
+                .listen('Message', ({message}) => {
+                    this.messages.push(message.from + ' - ' +message.message);
                 });
         },
         methods: {
             sendMessage() {
-                axios.post('/messages',
+                axios.post('/api/messages/send',
                     {
                         message: this.message,
-                        receiver: this.receiver,
+                        chatId: this.chatId,
+                        receivers: this.receivers,
                     },
                     {
-                        headers: {'Authorization': "Bearer "}
+                        headers: {'Authorization': "Bearer " + window.getCookie('token')}
                     }
                 );
 
+                this.messages.push(this.userId + ' - ' + this.message);
+                this.message = '';
+            },
+            getMessages() {
+                if (this.chatId.trim() === '') {
+                    alert('Chat ID is empty');
+                }
+                axios.get('/api/messages/get/' + this.chatId,
+                    {
+                        headers: {'Authorization': "Bearer " + window.getCookie('token')}
+                    }
+                )
+                    .then(response => {
+                        console.log(response);
+                        let data = response.data;
+                        for (let index in data) {
+                            let item = data[index];
+                            this.messages.push(item.user_id + ' - ' + item.message);
+                        };
+                    });
             },
             addToken() {
                 document.cookie = "token=" + this.token;
                 document.cookie = "userId=" + this.userId;
-                alert('Token was set');
+                alert('Token was set. Please refresh the page.');
             },
             getToken() {
                 this.token = window.getCookie('token');

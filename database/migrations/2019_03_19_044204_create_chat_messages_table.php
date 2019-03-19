@@ -21,8 +21,8 @@ class CreateChatMessagesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('chat_id', 'chat_messages_foreign')->references('id')->on('chats')->onDelete('cascade');
-            $table->foreign('user_id', 'user_id_foreign')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('chat_id', 'chat_messages_foreign')->references('id')->on('chats')->onDelete('no action');
+            $table->foreign('user_id', 'user_id_foreign')->references('id')->on('users')->onDelete('no action');
         });
     }
 

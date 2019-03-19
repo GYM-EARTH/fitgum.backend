@@ -1889,37 +1889,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       messages: [],
       message: '',
-      receiver: '',
+      chatId: '',
+      receivers: '',
       token: '',
       userId: ''
     };
   },
   mounted: function mounted() {
-    window.Echo.private('chat.' + window.getCookie('userId')).listen('TestMessage', function (_ref) {
+    var _this = this;
+
+    window.Echo.private('chat.' + window.getCookie('userId')).listen('Message', function (_ref) {
       var message = _ref.message;
-      console.log(message);
+
+      _this.messages.push(message.from + ' - ' + message.message);
     });
   },
   methods: {
     sendMessage: function sendMessage() {
-      axios.post('/messages', {
+      axios.post('/api/messages/send', {
         message: this.message,
-        receiver: this.receiver
+        chatId: this.chatId,
+        receivers: this.receivers
       }, {
         headers: {
-          'Authorization': "Bearer "
+          'Authorization': "Bearer " + window.getCookie('token')
         }
+      });
+      this.messages.push(this.userId + ' - ' + this.message);
+      this.message = '';
+    },
+    getMessages: function getMessages() {
+      var _this2 = this;
+
+      if (this.chatId.trim() === '') {
+        alert('Chat ID is empty');
+      }
+
+      axios.get('/api/messages/get/' + this.chatId, {
+        headers: {
+          'Authorization': "Bearer " + window.getCookie('token')
+        }
+      }).then(function (response) {
+        console.log(response);
+        var data = response.data;
+
+        for (var index in data) {
+          var item = data[index];
+
+          _this2.messages.push(item.user_id + ' - ' + item.message);
+        }
+
+        ;
       });
     },
     addToken: function addToken() {
       document.cookie = "token=" + this.token;
       document.cookie = "userId=" + this.userId;
-      alert('Token was set');
+      alert('Token was set. Please refresh the page.');
     },
     getToken: function getToken() {
       this.token = window.getCookie('token');
@@ -47666,7 +47701,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { placeholder: "Receiver ID", id: "userId" },
+                  attrs: { placeholder: "User ID", id: "userId" },
                   domProps: { value: _vm.userId },
                   on: {
                     input: function($event) {
@@ -47705,19 +47740,43 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.receiver,
-                      expression: "receiver"
+                      value: _vm.receivers,
+                      expression: "receivers"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { placeholder: "Receiver ID", id: "receiver" },
-                  domProps: { value: _vm.receiver },
+                  attrs: { placeholder: "Receivers ID (через запятую)" },
+                  domProps: { value: _vm.receivers },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.receiver = $event.target.value
+                      _vm.receivers = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.chatId,
+                      expression: "chatId"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { placeholder: "Chat ID" },
+                  domProps: { value: _vm.chatId },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.chatId = $event.target.value
                     }
                   }
                 })
@@ -47754,6 +47813,15 @@ var render = function() {
                   on: { click: _vm.sendMessage }
                 },
                 [_vm._v("Send")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: { click: _vm.getMessages }
+                },
+                [_vm._v("Get history")]
               )
             ]),
             _vm._v(" "),

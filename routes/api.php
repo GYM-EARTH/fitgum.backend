@@ -24,7 +24,7 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
         Route::post('/messages/send', 'Api\\Messages@store');
 
-        Route::get('/messages/get', 'Api\\Messages@get');
+        Route::get('/messages/get/{chat}', 'Api\\Messages@get');
     });
 
     Route::get('/categories', 'Api\\CategoriesController@index');

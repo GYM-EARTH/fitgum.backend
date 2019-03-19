@@ -15,4 +15,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ChatMessage extends Model
 {
     use SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'message',
+    ];
+
+    public function chat()
+    {
+        return $this->belongsTo(Chat::class);
+    }
 }
