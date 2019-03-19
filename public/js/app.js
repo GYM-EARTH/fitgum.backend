@@ -1858,19 +1858,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      message: [],
-      textMessage: ''
+      messages: [],
+      message: '',
+      receiver: '',
+      token: '',
+      userId: ''
     };
   },
   mounted: function mounted() {
-    window.Echo.private('chat.1').listen('TestMessage', function (_ref) {
+    window.Echo.private('chat.' + window.getCookie('userId')).listen('TestMessage', function (_ref) {
       var message = _ref.message;
       console.log(message);
     });
-    console.log('Component mounted.');
+  },
+  methods: {
+    sendMessage: function sendMessage() {
+      axios.post('/messages', {
+        message: this.message,
+        receiver: this.receiver
+      }, {
+        headers: {
+          'Authorization': "Bearer "
+        }
+      });
+    },
+    addToken: function addToken() {
+      document.cookie = "token=" + this.token;
+      document.cookie = "userId=" + this.userId;
+      alert('Token was set');
+    },
+    getToken: function getToken() {
+      this.token = window.getCookie('token');
+      this.userId = window.getCookie('userId');
+    }
   }
 });
 
@@ -47569,32 +47623,163 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Chat")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.token,
+                      expression: "token"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { placeholder: "Token", id: "token" },
+                  domProps: { value: _vm.token },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.token = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.userId,
+                      expression: "userId"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { placeholder: "Receiver ID", id: "userId" },
+                  domProps: { value: _vm.userId },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.userId = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-success", on: { click: _vm.addToken } },
+                [_vm._v("Set token")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.getToken } },
+                [_vm._v("Get token")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Chat")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.receiver,
+                      expression: "receiver"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { placeholder: "Receiver ID", id: "receiver" },
+                  domProps: { value: _vm.receiver },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.receiver = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.message,
+                      expression: "message"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { placeholder: "Message", id: "message" },
+                  domProps: { value: _vm.message },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.message = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: { click: _vm.sendMessage }
+                },
+                [_vm._v("Send")]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "textarea",
+                  {
+                    staticClass: "form-control",
+                    attrs: {
+                      placeholder: "Messages",
+                      readonly: "",
+                      id: "messages"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.messages.join("\n")))]
+                )
+              ])
             ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -59899,13 +60084,12 @@ if (token) {
 
 
 window.io = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
-var bearerToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUzYTg0NzA4OTM5Nzc0MTc3YzQwNDhjN2RlMmE3NDg3MDA4NDE4ODQ4NTAxNzgzZjRjYmU3NGMzMjM1OTkwZDFlZjIyYTM4MjVjYWJhMWNjIn0.eyJhdWQiOiIxIiwianRpIjoiNTNhODQ3MDg5Mzk3NzQxNzdjNDA0OGM3ZGUyYTc0ODcwMDg0MTg4NDg1MDE3ODNmNGNiZTc0YzMyMzU5OTBkMWVmMjJhMzgyNWNhYmExY2MiLCJpYXQiOjE1NTI5MjQ0NDksIm5iZiI6MTU1MjkyNDQ0OSwiZXhwIjoxNTg0NTQ2ODQ5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.uVP-7mEEr84R8fIs0olKRlVpT0tuBPn1N76fYogmzVBYbSFgj5E4W7hcV7Luy-tYpNyiWy54IuIlk3DlindA12DHW6e2FQIDWTcxKTNEntiXK7Kfnp1du56xS0OwfEu2SQrosbB7C5IB52QA5ulMVP4eqvlJsZhUz4GOUIvrIWzm2XhOKfvORdL30vRmN9MfygdvU_yda2CN9GeWQKfTMutCkqV4oyPCIM04u75awKSvF4tNAS_wzEx-UTcqnEHZ_Rnuz-xa9L4AnKI1xid9r-01phf30f5Bu6E32EtQKIdLwi-iXsFD4xpS7t3m5M9qQH-PH0vrI3cURHBSspcjc0HsLYm25bD1S558XjZiw3_de-Kb7YiEr8daXne0GTVbceh4ZFOtGc5KzULlabo3t8EdRYBn9C9xG3DeRuVxwrSOPxSrCeTmUqx2iq4Mp2xsHyA0mHI3CPRrbROgGSIMDYJRu7garsH3LTfpEJWNsaO_bZZEOlJsh6_QNTtC61p0GTRcaXKo5WDtkopY3gpNTkQ7OOrdejat45O9RU32CI-CwNsMHPBrD5oFe9aU2LUYeyBdPANNpVm3y_GoR5FZ0L1wwhRaz6DCwthZWNUt0xCbV0wDJzn0jx4vYi6l6DW79Fz5YSmy__TGtNSN_M0-o-BX436V0prI2k07W0WU_KM';
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'socket.io',
   host: window.location.hostname + ':3000',
   auth: {
     headers: {
-      'Authorization': "Bearer " + bearerToken
+      'Authorization': "Bearer " + window.getCookie('token')
     }
   }
 });
