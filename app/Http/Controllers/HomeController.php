@@ -17,11 +17,4 @@ class HomeController extends Controller
     {
         return view('index');
     }
-
-    public function chat()
-    {
-        $message = 'some text';
-        broadcast(new Message($message));
-        return $message;
-    }
 }

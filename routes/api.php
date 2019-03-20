@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
+
+    Route::get('/index', 'HomeController@index')->name('home');
+
     Route::post('/login', 'Api\\AuthController@login');
     Route::post('/register', 'Api\\AuthController@register');
 

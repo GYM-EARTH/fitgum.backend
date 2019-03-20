@@ -21,8 +21,3 @@ Route::get('/get-token', function () {
     return response($token);
 })->middleware('auth');
 
-
-
-Route::get('/index', 'HomeController@index')->name('home');
-Route::get('/chat', 'HomeController@chat');
-
