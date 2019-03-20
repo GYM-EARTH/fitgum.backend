@@ -16,9 +16,11 @@
         "froala/nova-froala-field": "^1.1",
         "laraning/nova-time-field": "*",
         "laravel/framework": "5.7.*",
+        "laravel/horizon": "^3.0",
         "laravel/nova": "*",
         "laravel/passport": "^7.1",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
