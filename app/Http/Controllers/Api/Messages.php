@@ -65,6 +65,15 @@ class Messages
         return response()->json($chat->messages);
     }
 
+    public function chats(Request $request)
+    {
+        $chats = Chat::whereHas('users', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->with('users')->get();
+
+        return $chats;
+    }
+
     private function createChat(array $users)
     {
         /** @var Chat $chat */
@@ -74,6 +83,5 @@ class Messages
         }
         $chat->save();
         return $chat;
-
     }
 }
