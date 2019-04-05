@@ -69,7 +69,7 @@
         },
         methods: {
             sendMessage() {
-                axios.post('/api/messages/send',
+                axios.post('/messages/send',
                     {
                         message: this.message,
                         chatId: this.chatId,
@@ -87,7 +87,7 @@
                 if (this.chatId.trim() === '') {
                     alert('Chat ID is empty');
                 }
-                axios.get('/api/messages/get/' + this.chatId,
+                axios.get('/messages/get/' + this.chatId,
                     {
                         headers: {'Authorization': "Bearer " + window.getCookie('token')}
                     }
