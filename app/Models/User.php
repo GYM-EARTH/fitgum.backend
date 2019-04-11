@@ -8,6 +8,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ * @property string $avatar
+ *
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;

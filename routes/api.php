@@ -21,15 +21,15 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     Route::post('/register', 'Api\\AuthController@register');
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('/cabinet', function (Request $request) {
-            return $request->user();
-        });
+        Route::get('/cabinet', 'Api\\CabinetController@index');
 
-        Route::post('/messages/send', 'Api\\Messages@store');
+        Route::post('/cabinet/avatar', 'Api\\CabinetController@updateAvatar');
 
-        Route::get('/messages/get/{chat}', 'Api\\Messages@get');
+        Route::post('/messages/send', 'Api\\MessagesController@store');
 
-        Route::get('/messages/chats', 'Api\\Messages@chats');
+        Route::get('/messages/get/{chat}', 'Api\\MessagesController@get');
+
+        Route::get('/messages/chats', 'Api\\MessagesController@chats');
     });
 
     Route::get('/categories', 'Api\\CategoriesController@index');

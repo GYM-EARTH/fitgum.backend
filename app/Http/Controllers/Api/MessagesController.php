@@ -14,7 +14,7 @@ use App\Models\Chat\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Messages
+class MessagesController
 {
     public function store(Request $request)
     {
