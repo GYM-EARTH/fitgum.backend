@@ -17,7 +17,9 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $items = News::where('status', true)->paginate(30);
+        $items = News::with('category')->
+            where('status', true)
+            ->paginate(30);
 
         return response()
             ->json($items);
