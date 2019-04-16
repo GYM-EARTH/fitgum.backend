@@ -77,7 +77,7 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     Route::get('sitemap-articles', function () {
         $sitemap_articles = App::make("sitemap");
 
-        $sitemap_articles->setCache('laravel.sitemap-articles', 3600);
+//        $sitemap_articles->setCache('laravel.sitemap-articles', 3600);
 
         $articles = \App\Models\News::orderBy('created_at', 'desc')->get();
 
