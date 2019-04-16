@@ -73,6 +73,19 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     Route::get('/services', 'Api\\ServicesController@index');
 
     Route::get('/services/{slug}', 'Api\\ServicesController@show');
-});
 
+    Route::get('sitemap-articles', function () {
+        $sitemap_articles = App::make("sitemap");
+
+        $sitemap_articles->setCache('laravel.sitemap-articles', 3600);
+
+        $articles = \App\Models\News::orderBy('created_at', 'desc')->get();
+
+        foreach ($articles as $article) {
+            $sitemap_articles->add('https://fitgum.ru/news/' . $article->slug, $article->updated_at, '0.8', 'monthly');
+        }
+
+        return $sitemap_articles->render('xml');
+    });
+});
 
