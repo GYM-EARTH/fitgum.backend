@@ -16,7 +16,7 @@ class CreateProgramDayScheduleSTable extends Migration
         Schema::create('program_day_schedules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->jsonb('data')->default('{}');
+            $table->jsonb('data')->default('{}')->nullable();
             $table->timestamps();
         });
     }
