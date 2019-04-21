@@ -74,6 +74,10 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('/services/{slug}', 'Api\\ServicesController@show');
 
+    Route::get('/programs', 'Api\\ProgramsController@index');
+
+    Route::get('/programs/{slug}', 'Api\\ProgramsController@show');
+
     Route::get('sitemap-articles', function () {
         $sitemap_articles = App::make("sitemap");
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d948aef8f0c963b72b6c17d5f48d34ed",
+    "content-hash": "4e31edb10072630bfc1442675bad5f78",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1175,6 +1175,47 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
+        },
+        {
+            "name": "fourstacks/nova-repeatable-fields",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fourstacks/nova-repeatable-fields.git",
+                "reference": "1cd36db609c05a40412ee6dc95440fd5db9591bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fourstacks/nova-repeatable-fields/zipball/1cd36db609c05a40412ee6dc95440fd5db9591bb",
+                "reference": "1cd36db609c05a40412ee6dc95440fd5db9591bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Fourstacks\\NovaRepeatableFields\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fourstacks\\NovaRepeatableFields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-02-02T22:11:28+00:00"
         },
         {
             "name": "froala/nova-froala-field",
