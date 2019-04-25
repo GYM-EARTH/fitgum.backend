@@ -17,8 +17,13 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('/index', 'HomeController@index')->name('home');
 
-    Route::post('/login', 'Api\\AuthController@login');
-    Route::post('/register', 'Api\\AuthController@register');
+    Route::middleware('guest')->group(function () {
+        Route::post('/login', 'Api\\Auth\\AuthController@login');
+        Route::post('/register', 'Api\\Auth\\AuthController@register');
+
+        Route::post('/password/forgot', 'Api\\Auth\\ResetPasswordController@forgot');
+        Route::get('/password/reset/{token}', 'Api\\Auth\\ResetPasswordController@reset')->name('password.reset');
+    });
 
     Route::middleware('auth:api')->group(function () {
         Route::get('/cabinet', 'Api\\CabinetController@index');
