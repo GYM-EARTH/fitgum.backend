@@ -17,6 +17,9 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('/index', 'HomeController@index')->name('home');
 
+    Route::post('/newsletter/create', 'Api\\NewsletterController@store');
+    Route::get('/newsletter/confirm/{email}/{token}', 'Api\\NewsletterController@confirm')->name('newsletter.confirm');
+
     Route::middleware('guest')->group(function () {
         Route::post('/login', 'Api\\Auth\\AuthController@login');
         Route::post('/register', 'Api\\Auth\\AuthController@register');

@@ -69,7 +69,7 @@ class ResetPasswordController extends Controller
         $user->notify(new PasswordResetSuccess($newPassword));
         return response()->json([
             'status' => 'SUCCESS',
-            'message' => 'Password was changed. '
+            'message' => 'Password was changed.'
         ]);
     }
 }
