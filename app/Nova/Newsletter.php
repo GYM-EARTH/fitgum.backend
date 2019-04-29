@@ -2,11 +2,14 @@
 
 namespace App\Nova;
 
+use App\Models\Newsletter as NewsletterModel;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -48,17 +51,18 @@ class Newsletter extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Title')
+            Text::make('Email')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'email'),
 
-            Text::make('Description')
-                ->rules('required', 'max:255'),
+            Select::make('Status')->options([
+                NewsletterModel::STATUS_WAIT => NewsletterModel::STATUS_WAIT,
+                NewsletterModel::STATUS_ACTIVE => NewsletterModel::STATUS_ACTIVE,
+            ])->displayUsingLabels(),
 
-            Text::make('Link')
-                ->rules('max:255'),
-
-            Boolean::make('Status'),
+            Date::make('Created At', 'created_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 
