@@ -99,5 +99,7 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
         return $sitemap_articles->render('xml');
     });
+
+    Route::get('feed', 'Api\\FeedsController@index');
 });
 

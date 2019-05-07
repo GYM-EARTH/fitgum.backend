@@ -1,0 +1,46 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>' ?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:georss="http://www.georss.org/georss">
+    <channel>
+        <title>{{ config('app.name') }}</title>
+        <link>{{ url('/') }}</link>
+        <description>Вы думаете каким спортом заняться? Наш сервис откроет для вас более сотни известных спортивных занятий и даст исчерпывающую информацию о каждом из них</description>
+        <language>ru</language>
+
+        @foreach ($items as $item)
+
+            @php
+                $item->title = str_replace("&", "&amp;", $item->title);
+                $item->description = str_replace("&rdquo;", "”", $item->description);
+                $item->description = str_replace("&ldquo;", "“", $item->description);
+
+                $item->title = stripslashes($item->title);
+                $item->description = stripslashes($item->description);
+                $item->slug = stripslashes($item->slug);
+                $item->id = stripslashes($item->id);
+
+                if ($item->image !='') {
+                    $img = '<img src="https://fitgum.ru/uploads/posts/{{$item->image}}" alt="' . $item->title . '" width="600">';
+                } else {
+                    $img = null;
+                }
+            @endphp
+
+            <item>
+                <title>{{ $item->title }}</title>
+                <link>https://fitgum.ru/news/{{$item->slug}}</link>
+                <enclosure url="https://fitgum.ru/uploads/items/{{$item->image}}" type="image/jpeg"/>
+                <description><![CDATA[{!! $img !!} {!! $item->description !!}]]></description>
+                <pubDate>{{ date('D, d M Y H:i:s', strtotime($item->created_at)) }} +0300</pubDate>
+                <author>FITGUM</author>
+                <content:encoded><![CDATA[ {!! $item->content !!}]]></content:encoded>
+            </item>
+
+        @endforeach
+
+    </channel>
+</rss>
