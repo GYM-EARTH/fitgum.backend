@@ -25,7 +25,8 @@
                 $item->id = stripslashes($item->id);
 
                 if ($item->preview !='') {
-                    $img = '<img src="https://fitgum.ru/uploads/posts/' . $item->preview . '" alt="' . $item->title . '" width="600">';
+                    //$img = '<img src="https://fitgum.ru/uploads/posts/' . $item->preview . '" alt="' . $item->title . '" width="600">';
+                    $img = '<img src="' . storage_path($item->preview) . '" alt="' . $item->title . '" width="600">';
                 } else {
                     $img = null;
                 }
