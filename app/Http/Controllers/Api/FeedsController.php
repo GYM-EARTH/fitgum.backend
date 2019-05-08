@@ -11,33 +11,28 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class FeedsController extends Controller
 {
     public function index()
     {
+        $settings = Setting::where('key', 'feed')->first();
+        if (null === $settings) {
+            $settings = [
+                "key" => "feed",
+                "title" => "",
+                "description" => "",
+                "keywords" => "",
+            ];
+        } else {
+            $settings = $settings->toArray();
+        }
+
         $items = News::where('status', true)
             ->take(20)->get();
 
-        return view('rss.feed', compact('items'));
-    }
-
-    public function show(Request $request, $slug)
-    {
-        $item = News::with('category')
-            ->where('status', true)
-            ->where('slug', $slug)
-            ->first();
-
-        if (!$item) {
-            return response()
-                ->json(['error' => 404, 'message' => 'Not found'], 404);
-        }
-
-        $item->views += 2;
-        $item->save();
-
-        return response()->json($item->toArray());
+        return view('rss.feed', compact('items', 'settings'));
     }
 }
