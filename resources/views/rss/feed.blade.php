@@ -8,7 +8,7 @@
     <channel>
         <title>{{ config('app.name') }}</title>
         <link>{{ url('/') }}</link>
-        <description>Вы думаете каким спортом заняться? Наш сервис откроет для вас более сотни известных спортивных занятий и даст исчерпывающую информацию о каждом из них</description>
+        <description>{{ $settings['description'] }}</description>
         <language>ru</language>
 
         @foreach ($items as $item)
