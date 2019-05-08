@@ -26,7 +26,7 @@
 
                 if ($item->preview !='') {
                     //$img = '<img src="https://fitgum.ru/uploads/posts/' . $item->preview . '" alt="' . $item->title . '" width="600">';
-                    $img = '<img src="' . storage_path($item->preview) . '" alt="' . $item->title . '" width="600">';
+                    $img = '<img src="' . Storage::url($item->preview) . '" alt="' . $item->title . '" width="600">';
                 } else {
                     $img = null;
                 }
@@ -36,7 +36,7 @@
                 <title>{{ $item->title }}</title>
                 <link>
                 https://fitgum.ru/news/{{ $item->slug }}</link>
-                <enclosure url="https://fitgum.ru/uploads/items/{{ $item->preview }}" type="image/jpeg"/>
+                <enclosure url="https://fitgum.ru/uploads/items/{{ Storage::url($item->preview) }}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $item->description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($item->created_at)) }} +0300</pubDate>
                 <author>FITGUM</author>
