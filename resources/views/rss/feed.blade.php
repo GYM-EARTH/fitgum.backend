@@ -7,7 +7,8 @@
      xmlns:georss="http://www.georss.org/georss">
     <channel>
         <title>{{ $settings['title'] }}</title>
-        <link>https://fitgum.ru/</link>
+        <link>
+        https://fitgum.ru/</link>
         <description>{{ $settings['description'] }}</description>
         <language>ru</language>
 
@@ -24,7 +25,7 @@
                 $item->id = stripslashes($item->id);
 
                 if ($item->preview !='') {
-                    $img = '<img src="https://fitgum.ru/uploads/posts/{{$item->image}}" alt="' . $item->title . '" width="600">';
+                    $img = '<img src="https://fitgum.ru/uploads/posts/' . $item->image . '" alt="' . $item->title . '" width="600">';
                 } else {
                     $img = null;
                 }
@@ -32,7 +33,8 @@
 
             <item>
                 <title>{{ $item->title }}</title>
-                <link>https://fitgum.ru/news/{{ $item->slug }}</link>
+                <link>
+                https://fitgum.ru/news/{{ $item->slug }}</link>
                 <enclosure url="https://fitgum.ru/uploads/items/{{ $item->preview }}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $item->description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($item->created_at)) }} +0300</pubDate>
