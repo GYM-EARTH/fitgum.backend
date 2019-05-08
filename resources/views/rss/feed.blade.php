@@ -6,8 +6,8 @@
      xmlns:atom="http://www.w3.org/2005/Atom"
      xmlns:georss="http://www.georss.org/georss">
     <channel>
-        <title>{{ config('app.name') }}</title>
-        <link>{{ url('/') }}</link>
+        <title>{{ $settings['title'] }}</title>
+        <link>https://fitgum.ru/</link>
         <description>{{ $settings['description'] }}</description>
         <language>ru</language>
 
@@ -23,7 +23,7 @@
                 $item->slug = stripslashes($item->slug);
                 $item->id = stripslashes($item->id);
 
-                if ($item->image !='') {
+                if ($item->preview !='') {
                     $img = '<img src="https://fitgum.ru/uploads/posts/{{$item->image}}" alt="' . $item->title . '" width="600">';
                 } else {
                     $img = null;
@@ -33,7 +33,7 @@
             <item>
                 <title>{{ $item->title }}</title>
                 <link>https://fitgum.ru/news/{{$item->slug}}</link>
-                <enclosure url="https://fitgum.ru/uploads/items/{{$item->image}}" type="image/jpeg"/>
+                <enclosure url="https://fitgum.ru/uploads/items/{{$item->preview}}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $item->description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($item->created_at)) }} +0300</pubDate>
                 <author>FITGUM</author>
