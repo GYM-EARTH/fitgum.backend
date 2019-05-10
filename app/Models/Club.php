@@ -45,4 +45,9 @@ class Club extends Model
     {
         return $this->belongsToMany(Level::class, 'club_level');
     }
+
+    public function trainers()
+    {
+        return $this->hasMany(Trainer::class);
+    }
 }

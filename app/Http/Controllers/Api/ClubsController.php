@@ -32,6 +32,7 @@ class ClubsController extends Controller
             ->with('city')
             ->with('levels')
             ->with('clubPhotos')
+            ->with('trainers')
             ->where('status', true)
             ->where('slug', $slug)
             ->first();
