@@ -19,6 +19,7 @@ class NewsController extends Controller
     {
         $items = News::with('category')->
             where('status', true)
+            ->latest()
             ->paginate(30);
 
         return response()
