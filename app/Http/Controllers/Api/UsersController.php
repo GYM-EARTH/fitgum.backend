@@ -23,11 +23,10 @@ class UsersController extends Controller
             ->json($items);
     }
 
-    public function show($slug)
+    public function show($userId)
     {
         $item = User::with('userRole')
-            ->where('slug', $slug)
-            ->first();
+            ->find($userId);
 
         if (!$item) {
             return response()

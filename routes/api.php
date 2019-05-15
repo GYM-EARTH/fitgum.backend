@@ -104,6 +104,6 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
     Route::get('users', 'Api\\UsersController@index');
     Route::get('users/trainers', 'Api\\UsersController@trainers');
-    Route::get('users/{slug}', 'Api\\UsersController@show');
+    Route::get('users/{userId}', 'Api\\UsersController@show');
 });
 
