@@ -101,5 +101,9 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     });
 
     Route::get('feed', 'Api\\FeedsController@index');
+
+    Route::get('users', 'Api\\UsersController@index');
+    Route::get('users/trainers', 'Api\\UsersController@trainers');
+    Route::get('users/{slug}', 'Api\\UsersController@show');
 });
 
