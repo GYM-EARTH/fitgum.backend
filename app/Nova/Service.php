@@ -64,7 +64,7 @@ class Service extends Resource
             Image::make('Cover')
                 ->disk('public')
                 ->path('services/covers')
-                ->rules('mimes:jpeg,png|size:102400')
+                ->rules('mimes:jpeg,png,svg|size:102400')
                 ->storeAs(function (Request $request) {
                     return substr(sha1($request->cover->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->cover->getClientOriginalExtension();
                 }),
