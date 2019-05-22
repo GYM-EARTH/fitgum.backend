@@ -83,6 +83,14 @@ class Club extends Resource
                     return substr(sha1($request->logo->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->logo->getClientOriginalExtension();
                 }),
 
+            Image::make('Cover')
+                ->disk('public')
+                ->path('clubs/covers')
+                ->rules('mimes:jpeg,png|size:102400')
+                ->storeAs(function (Request $request) {
+                    return substr(sha1($request->cover->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->cover->getClientOriginalExtension();
+                }),
+
             PhoneNumber::make('Phone')
                 ->withCustomFormats('##########')
                 ->onlyCustomFormats()

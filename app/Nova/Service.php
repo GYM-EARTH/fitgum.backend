@@ -6,6 +6,7 @@ use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 
 class Service extends Resource
@@ -59,6 +60,14 @@ class Service extends Resource
 
             Text::make('Description')
                 ->rules('required', 'max:255'),
+
+            Image::make('Cover')
+                ->disk('public')
+                ->path('services/covers')
+                ->rules('mimes:jpeg,png|size:102400')
+                ->storeAs(function (Request $request) {
+                    return substr(sha1($request->cover->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->cover->getClientOriginalExtension();
+                }),
         ];
     }
 
