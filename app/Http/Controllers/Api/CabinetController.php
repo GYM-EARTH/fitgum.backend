@@ -35,7 +35,7 @@ class CabinetController extends Controller
             $fileName = substr(sha1($request->file('image')->getBasename() . uniqid()), 1, 5) . '.' . $request->file('image')->extension();
             $path = \Storage::disk('public')->path('users/avatars') . '/' . $fileName;
             Image::make($request->file(('image')))->fit(512, 512)->save($path);
-            $user->avatar = \Storage::disk('public')->url('/files/users/avatars/' . $fileName);
+            $user->avatar = \Storage::disk('public')->url('/users/avatars/' . $fileName);
             try {
                 $user->saveOrFail();
                 return response()->json([
