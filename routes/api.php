@@ -33,6 +33,8 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
 
         Route::post('/cabinet/avatar', 'Api\\CabinetController@updateAvatar');
 
+        Route::post('/cabinet/edit', 'Api\\CabinetController@update');
+
         Route::post('/messages/send', 'Api\\MessagesController@store');
 
         Route::get('/messages/get/{chat}', 'Api\\MessagesController@get');
@@ -94,7 +96,7 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
         $articles = \App\Models\News::orderBy('created_at', 'desc')->get();
 
         foreach ($articles as $article) {
-            $sitemap_articles->add('https://fitgum.ru/news/' . $article->slug, $article->updated_at, '0.8', 'monthly');
+            $sitemap_articles->add(env('APP_URL', 'http://gym.earth') . '/news/' . $article->slug, $article->updated_at, '0.8', 'monthly');
         }
 
         return $sitemap_articles->render('xml');
