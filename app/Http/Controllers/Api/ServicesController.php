@@ -10,14 +10,14 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
+use App\Models\MicroService;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
 {
     public function index()
     {
-        $items = Service::paginate(30);
+        $items = MicroService::paginate(30);
 
         return response()
             ->json($items);
@@ -25,7 +25,7 @@ class ServicesController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $item = Service::where('slug', $slug)
+        $item = MicroService::where('slug', $slug)
             ->first();
 
         if (!$item) {

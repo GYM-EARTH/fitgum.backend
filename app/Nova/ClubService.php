@@ -9,16 +9,18 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 
-class Service extends Resource
+class ClubService extends Resource
 {
     public static $group = 'Clubs';
+
+    public static $displayInNavigation = false;
 
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Service';
+    public static $model = 'App\\Models\\ClubService';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -50,8 +52,8 @@ class Service extends Resource
             Slug::make('Slug')
                 ->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:services,slug')
-                ->updateRules('unique:services,slug,{{resourceId}}'),
+                ->creationRules('unique:club_services,slug')
+                ->updateRules('unique:club_services,slug,{{resourceId}}'),
 
             TextWithSlug::make('Title')
                 ->slug('Slug')
@@ -63,7 +65,7 @@ class Service extends Resource
 
             Image::make('Cover')
                 ->disk('public')
-                ->path('services/covers')
+                ->path('club/services/covers')
                 ->rules('mimes:jpeg,png,svg|size:102400')
                 ->storeAs(function (Request $request) {
                     return substr(sha1($request->cover->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->cover->getClientOriginalExtension();

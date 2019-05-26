@@ -147,13 +147,18 @@ class Club extends Resource
 
             HasMany::make('ClubTimes'),
 
-            BelongsToMany::make('Services', 'services', Service::class)
+            HasMany::make('ClubServices'),
+
+            BelongsToMany::make('microServices', 'microServices', MicroService::class)
                 ->searchable(),
 
             BelongsToMany::make('Metros', 'metros', Metro::class)
                 ->searchable(),
 
             BelongsToMany::make('Levels', 'levels', Level::class)
+                ->searchable(),
+
+            BelongsToMany::make('Users', 'users', User::class)
                 ->searchable(),
 
             Boolean::make('Status'),

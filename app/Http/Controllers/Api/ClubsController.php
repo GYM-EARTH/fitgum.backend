@@ -27,7 +27,8 @@ class ClubsController extends Controller
     {
         $item = Club::with('type')
             ->with('metros')
-            ->with('services')
+            ->with('clubServices')
+            ->with('microServices')
             ->with('clubTimes')
             ->with('city')
             ->with('levels')

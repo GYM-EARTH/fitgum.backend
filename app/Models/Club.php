@@ -21,14 +21,19 @@ class Club extends Model
         return $this->belongsToMany(Metro::class, 'club_metro', 'club_id', 'metro_id');
     }
 
-    public function services()
+    public function microServices()
     {
-        return $this->belongsToMany(Service::class, 'club_service', 'club_id', 'service_id');
+        return $this->belongsToMany(MicroService::class, 'club_service', 'club_id', 'service_id');
     }
 
     public function clubPhotos()
     {
         return $this->hasMany(ClubPhoto::class);
+    }
+
+    public function clubServices()
+    {
+        return $this->hasMany(ClubService::class);
     }
 
     public function clubTimes()
