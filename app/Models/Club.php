@@ -50,4 +50,9 @@ class Club extends Model
     {
         return $this->hasMany(Trainer::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'club_user');
+    }
 }

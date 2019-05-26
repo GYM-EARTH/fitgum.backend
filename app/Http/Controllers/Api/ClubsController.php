@@ -33,13 +33,14 @@ class ClubsController extends Controller
             ->with('levels')
             ->with('clubPhotos')
             ->with('trainers')
+            ->with('users')
             ->where('status', true)
             ->where('slug', $slug)
             ->first();
 
         if (!$item) {
             return response()
-                ->json([ 'error'=> 404, 'message'=> 'Not found'], 404);
+                ->json(['error' => 404, 'message' => 'Not found'], 404);
         }
 
         $item->views += 1;
@@ -47,5 +48,33 @@ class ClubsController extends Controller
 
         return response()
             ->json($item->toArray());
+    }
+
+    public function attachUser($slug)
+    {
+        /** @var Club $item */
+        $item = Club::where('slug', $slug)
+            ->first();
+
+        if (!$item) {
+            return response()
+                ->json(['error' => 404, 'message' => 'Not found'], 404);
+        }
+
+        $item->users()->attach(\Auth::id());
+
+        try {
+            $item->saveOrFail();
+            return response()
+                ->json([
+                    'status' => 'SUCCESS',
+                ]);
+        } catch (\Throwable $exception) {
+            return response()
+                ->json([
+                    'status' => 'ERROR',
+                    'message' => $exception->getMessage(),
+                ]);
+        }
     }
 }

@@ -40,6 +40,8 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
         Route::get('/messages/get/{chat}', 'Api\\MessagesController@get');
 
         Route::get('/messages/chats', 'Api\\MessagesController@chats');
+
+        Route::post('/clubs/{slug}/attach', 'Api\\ClubsController@attachUser');
     });
 
     Route::get('/categories', 'Api\\CategoriesController@index');
