@@ -9,7 +9,7 @@
      xmlns:georss="http://www.georss.org/georss">
     <channel>
         <title>{{ config('app.name') }}</title>
-        <link>{{ url('/') }}</link>
+        <link>{{ env('APP_URL') }}</link>
         <description>Вы думаете каким спортом заняться? Наш сервис откроет для вас более сотни известных спортивных занятий и даст исчерпывающую информацию о каждом из них</description>
         <language>ru</language>
 
@@ -34,7 +34,7 @@
 
             <item turbo="true">
                 <title>{{ $title }}</title>
-                <link>{{ url('/') }}clubs/{{$slug}}</link>
+                <link>{{ env('APP_URL') }}clubs/{{$slug}}</link>
                 <enclosure url="{{ env('APP_STORAGE_DOMAIN') . $club->cover}}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($club->created_at)) }} +0300</pubDate>
