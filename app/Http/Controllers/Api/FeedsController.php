@@ -38,7 +38,8 @@ class FeedsController extends Controller
     }
 
     public function turbo() {
-        $clubs = Club::orderBy('created_at', 'desc')->take(20)->get();
+        $clubs = Club::orderBy('created_at', 'desc')
+            ->where('status', true)->take(20)->get();
 
         return response()->view('feeds.turbo', compact('clubs'))->header('Content-Type', 'text/xml');
     }
