@@ -34,7 +34,7 @@
 
             <item turbo="true">
                 <title>{{ $title }}</title>
-                <link>{{ url('/ ') }}clubs/{{$slug}}</link>
+                <link>{{ url('/') }}clubs/{{$slug}}</link>
                 <enclosure url="{{ env('APP_STORAGE_DOMAIN') . $club->cover}}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($club->created_at)) }} +0300</pubDate>
