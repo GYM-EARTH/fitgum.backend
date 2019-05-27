@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Club;
 use App\Models\News;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -34,5 +35,11 @@ class FeedsController extends Controller
             ->take(20)->get();
 
         return view('rss.feed', compact('items', 'settings'));
+    }
+
+    public function turbo() {
+        $clubs = Club::orderBy('created_at', 'desc')->take(20)->get();
+
+        return response()->view('feeds.turbo', compact('clubs'))->header('Content-Type', 'text/xml');
     }
 }

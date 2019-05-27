@@ -34,8 +34,7 @@
 
             <item>
                 <title>{{ $item->title }}</title>
-                <link>
-                {{ url('/') }}/news/{{ $item->slug }}</link>
+                <link>{{ url('/') }}/news/{{ $item->slug }}</link>
                 <enclosure url="{{ env('APP_STORAGE_DOMAIN') . $item->preview }}" type="image/jpeg"/>
                 <description><![CDATA[{!! $img !!} {!! $item->description !!}]]></description>
                 <pubDate>{{ date('D, d M Y H:i:s', strtotime($item->created_at)) }} +0300</pubDate>

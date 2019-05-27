@@ -93,12 +93,22 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     Route::get('sitemap-articles', function () {
         $sitemap_articles = App::make("sitemap");
 
-//        $sitemap_articles->setCache('laravel.sitemap-articles', 3600);
-
         $articles = \App\Models\News::orderBy('created_at', 'desc')->get();
 
         foreach ($articles as $article) {
             $sitemap_articles->add(env('APP_URL', 'http://gym.earth') . '/news/' . $article->slug, $article->updated_at, '0.8', 'monthly');
+        }
+
+        return $sitemap_articles->render('xml');
+    });
+
+    Route::get('sitemap-clubs', function () {
+        $sitemap_articles = App::make("sitemap");
+
+        $articles = \App\Models\Club::orderBy('created_at', 'desc')->get();
+
+        foreach ($articles as $article) {
+            $sitemap_articles->add(env('APP_URL', 'http://gym.earth') . '/clubs/' . $article->slug, $article->updated_at, '0.8', 'monthly');
         }
 
         return $sitemap_articles->render('xml');
@@ -109,5 +119,6 @@ Route::domain(env('APP_API_DOMAIN', ''))->group(function () {
     Route::get('users', 'Api\\UsersController@index');
     Route::get('users/trainers', 'Api\\UsersController@trainers');
     Route::get('users/{userId}', 'Api\\UsersController@show');
+    Route::get('turbo', 'Api\\FeedsController@turbo');
 });
 
