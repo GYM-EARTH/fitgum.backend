@@ -63,12 +63,12 @@ class Video extends Resource
                 ->rules('required', 'max:255'),
 
             Text::make('Url')
-                ->rules('max:255', 'url'),
+                ->rules('max:255', 'string'),
 
             Image::make('Preview')
                 ->disk('public')
                 ->path('videos/previews')
-                ->rules('mimes:jpeg')
+                ->rules('mimes:jpeg,webp')
                 ->storeAs(function (Request $request) {
                     return substr(sha1($request->preview->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->preview->getClientOriginalExtension();
                 }),
