@@ -17,6 +17,18 @@ class ClubsController extends Controller
 {
     public function index()
     {
+        $data = [
+            'body' => [
+                'testField' => 'abc'
+            ],
+            'index' => 'my_index',
+            'type' => 'my_type',
+            'id' => 'my_id',
+        ];
+
+        $return = Elasticsearch::index($data);
+
+
         $items = Club::where('status', true)->paginate(30);
 
         return response()

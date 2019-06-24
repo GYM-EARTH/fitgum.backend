@@ -7,7 +7,7 @@
         "laravel"
     ],
     "license": "MIT",
-    "require": {
+    "require": {git add
         "php": "^7.1.3",
         "barryvdh/laravel-cors": "^0.11.2",
         "barryvdh/laravel-ide-helper": "^2.6",

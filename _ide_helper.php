@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.26 on 2019-04-10 03:50:20.
+ * Generated for Laravel 5.7.28 on 2019-06-24 16:15:32.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -9430,7 +9430,7 @@ namespace Illuminate\Support\Facades {
          *  * $default
          *
          * @param string|null $default The default format
-         * @return string The request format
+         * @return string|null The request format
          * @static 
          */ 
         public static function getRequestFormat($default = 'html')
@@ -14447,6 +14447,68 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace Cviebrock\LaravelElasticsearch { 
+
+    /**
+     * Class Facade
+     *
+     * @package Cviebrock\LaravelElasticsearch
+     */ 
+    class Facade {
+        
+        /**
+         * Retrieve or build the named connection.
+         *
+         * @param string|null $name
+         * @return \Cviebrock\LaravelElasticsearch\Client 
+         * @static 
+         */ 
+        public static function connection($name = null)
+        {
+                        /** @var \Cviebrock\LaravelElasticsearch\Manager $instance */
+                        return $instance->connection($name);
+        }
+        
+        /**
+         * Get the default connection.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultConnection()
+        {
+                        /** @var \Cviebrock\LaravelElasticsearch\Manager $instance */
+                        return $instance->getDefaultConnection();
+        }
+        
+        /**
+         * Set the default connection.
+         *
+         * @param string $connection
+         * @static 
+         */ 
+        public static function setDefaultConnection($connection)
+        {
+                        /** @var \Cviebrock\LaravelElasticsearch\Manager $instance */
+                        return $instance->setDefaultConnection($connection);
+        }
+        
+        /**
+         * Return all of the created connections.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getConnections()
+        {
+                        /** @var \Cviebrock\LaravelElasticsearch\Manager $instance */
+                        return $instance->getConnections();
+        }
+         
+    }
+ 
+}
+
 namespace Intervention\Image\Facades { 
 
     /**
@@ -17149,6 +17211,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class Elasticsearch extends \Cviebrock\LaravelElasticsearch\Facade {}
 
     class Image extends \Intervention\Image\Facades\Image {}
 
