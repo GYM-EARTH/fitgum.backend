@@ -71,7 +71,7 @@ class Program extends Resource
                 ->path('programs')
                 ->rules('image')
                 ->storeAs(function (Request $request) {
-                    return substr(sha1($request->preview->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->preview->getClientOriginalExtension();
+                    return substr(sha1($request->image->getClientOriginalName() . uniqid()), 1, 5) . '.' . $request->image->getClientOriginalExtension();
                 }),
 
             Boolean::make('Status'),
