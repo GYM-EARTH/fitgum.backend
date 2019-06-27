@@ -8,6 +8,6 @@ class ProgramDay extends Model
 {
     public function schedules()
     {
-        return $this->belongsToMany(ProgramDaySchedule::class, 'program_day_schedule_relation');
+        return $this->hasMany(ProgramDaySchedule::class);
     }
 }

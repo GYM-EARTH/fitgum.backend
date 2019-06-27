@@ -9,6 +9,7 @@ use Froala\NovaFroalaField\Froala;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Image;
@@ -64,8 +65,7 @@ class ProgramDay extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            BelongsToMany::make('Schedule', 'schedules', ProgramDaySchedule::class)
-                ->searchable(),
+            HasMany::make('Schedule', 'schedules', ProgramDaySchedule::class),
         ];
     }
 

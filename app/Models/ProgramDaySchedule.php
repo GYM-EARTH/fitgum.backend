@@ -10,8 +10,8 @@ class ProgramDaySchedule extends Model
         'data' => 'array',
     ];
 
-    public function days()
+    public function day()
     {
-        return $this->belongsToMany(ProgramDay::class, 'program_day_schedule_relation');
+        return $this->belongsTo(ProgramDay::class);
     }
 }
