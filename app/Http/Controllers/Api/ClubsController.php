@@ -26,8 +26,6 @@ class ClubsController extends Controller
             'id' => 'my_id',
         ];
 
-        $return = Elasticsearch::index($data);
-
 
         $items = Club::where('status', true)->paginate(30);
 
